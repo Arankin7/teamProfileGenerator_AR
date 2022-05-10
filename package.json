@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Arankin7/teamProfileGenerator_AR/issues"
   },
-  "homepage": "https://github.com/Arankin7/teamProfileGenerator_AR#readme"
+  "homepage": "https://github.com/Arankin7/teamProfileGenerator_AR#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
 }
