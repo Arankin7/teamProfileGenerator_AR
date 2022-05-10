@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manger');
 
 
@@ -43,17 +45,10 @@ const promptManager = () =>{
                 }
             }
         }
-        // ,
-        // {
-        //     type: 'confirm',
-        //     name: 'employeeConfirm',
-        //     message: 'Would you like to add another employee?',
-        //     default: false            
-        // }
     ])
     .then((answers) => {
         // Still need to push answers to html file
-        answers = new Manager(answers.name, answers.id, answers.email, answers.officeNum)
+        answers = new Manager(answers.name, answers.id, answers.email, answers.officeNum);
         console.log(answers);
 
         return promptEmployee();
@@ -88,19 +83,111 @@ const promptEmployee = () => {
                 }
             })
         }
-        return promptEmployee();
     });
 };
 
 // add questions about an engineer
 const promptEngineer = () => {
-    console.log('Engineer chosen');
+    // console.log('Engineer chosen');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your name? (Required)',
+            validate: nameInput => {
+                if(nameInput){
+                    return true;
+                }
+                else{
+                    console.log('Please enter your name.')
+                    return false; 
+                }
+            }
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: 'What is your employee ID?'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email adress?',
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is your GitHub username? (Required)',
+            validate: gitInput => {
+                if(gitInput){
+                    return true; 
+                }
+                else {
+                    console.log('Please enter your GitHub username.')
+                    return false; 
+                }
+            }
+        }
+    ])
+    .then((answers) => {
+        // Still need to push answers to html file
+        answers = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        console.log(answers);
 
+        return promptEmployee();
+    });    
 };
 
 // Add questions about an intern
 const promptIntern = () => {
-    console.log('Intern Chosen');
+    // console.log('Intern Chosen');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your name? (Required)',
+            validate: nameInput => {
+                if(nameInput){
+                    return true;
+                }
+                else{
+                    console.log('Please enter your name.')
+                    return false; 
+                }
+            }
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: 'What is your employee ID?'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email adress?',
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'What school are you currently enrolled in? (Required)',
+            validate: schoolInput => {
+                if(schoolInput){
+                    return true; 
+                }
+                else {
+                    console.log('Please enter the school you currently attend.');
+                    return false; 
+                }
+            }
+        }
+    ])
+    .then((answers) => {
+        // Still need to push answers to html file
+        answers = new Intern (answers.name, answers.id, answers.email, answers.school);
+        console.log(answers);
+
+        return promptEmployee();
+    });
 };
 
 promptManager();
