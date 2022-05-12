@@ -1,21 +1,22 @@
 const Employee = require("../lib/Employee");
 const Engineer = require('../lib/Engineer');
 
-const pageTemplate = (templateData) =>{
+const pageTemplate = templateData =>{
     let employeeArr = [];
 
     const generateManager = manager => {
+        console.log(manager);
         let managerData = 
         `
         <div>
             <div> 
-                <h2>${managerData.getName()}</h2>
-                <h3>Role: ${managerData.getRole()}</h3>
+                <h2>${manager.name}</h2>
+                <h3>Role: ${manager.getRole()}</h3>
             </div>
             <ul>
-                <li>Employee Id: ${managerData.getId()}</li>
-                <li>Email: ${managerData.getEmail()}</li>
-                <li>Office Number: ${managerData.officeNumber}</li>
+                <li>Employee Id: ${manager.id}</li>
+                <li>Email: ${manager.email}</li>
+                <li>Office Number: ${manager.officeNumber}</li>
             </ul>
         </div>
         `
@@ -27,13 +28,13 @@ const pageTemplate = (templateData) =>{
         `
         <div>
             <div> 
-                <h2>${engineerData.name}</h2>
-                <h3>Role: ${engineerData.getRole()}</h3>
+                <h2>${engineer.name}</h2>
+                <h3>Role: ${engineer.getRole()}</h3>
             </div>
             <ul>
-                <li>Employee Id: ${engineerData.id}</li>
-                <li>Email: ${engineerData.email}</li>
-                <li>GitHub: ${engineerData.github}</li>
+                <li>Employee Id: ${engineer.id}</li>
+                <li>Email: ${engineer.email}</li>
+                <li>GitHub: ${engineer.github}</li>
             </ul>
         </div>
         `
@@ -45,38 +46,34 @@ const pageTemplate = (templateData) =>{
         `
         <div>
             <div> 
-                <h2>${internData.name}</h2>
-                <h3>Role: ${internData.getRole()}</h3>
+                <h2>${intern.name}</h2>
+                <h3>Role: ${intern.getRole()}</h3>
             </div>
             <ul>
-                <li>Employee Id: ${internData.id}</li>
-                <li>Email: ${internData.email}</li>
-                <li>School: ${internData.school}</li>
+                <li>Employee Id: ${intern.id}</li>
+                <li>Email: ${intern.email}</li>
+                <li>School: ${intern.school}</li>
             </ul>
         </div>  
         `
         employeeArr.push(internData);
     }
 
-    for(i = 0; i < employeeArr.length; i++){
-        if(employeeArr[i].getRole() === "Manager"){
-            generateManager(employeeArr[i]);
+    for(i = 0; i < templateData.length; i++){
+        if(templateData[i].getRole() === "Manager"){
+            generateManager(templateData[i]);
         }
-        if(employeeArr[i].getRole() === "Engineer"){
-            generateEngineer(employeeArr[i]);            
+        if(templateData[i].getRole() === "Engineer"){
+            generateEngineer(templateData[i]);            
         }
-        if(employeeArr[i].getRole() === "Intern"){
-            generateIntern(employeeArr[i]);            
+        if(templateData[i].getRole() === "Intern"){
+            generateIntern(templateData[i]);            
         }
     }
 
-    return templateData.join('');
+    return employeeArr.join('');
 
 }
-
-
-
-
 
 module.exports = templateData => {
     console.log(templateData)

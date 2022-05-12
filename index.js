@@ -60,7 +60,7 @@ const promptManager = () =>{
 
         employeeArr.push(manager);
 
-        console.log(employeeArr);
+        // console.log(employeeArr);
         return promptEmployee();
     })
 };
@@ -115,7 +115,7 @@ const promptEngineer = () => {
 
         employeeArr.push(engineer);
 
-        console.log(employeeArr);
+        // console.log(employeeArr);
         return promptEmployee();
     });    
 };
@@ -168,7 +168,7 @@ const promptIntern = () => {
         const intern = new Intern (name, id, email, school);
 
         employeeArr.push(intern);
-        console.log(employeeArr);
+        // console.log(employeeArr);
         return promptEmployee();
     });
 };
