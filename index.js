@@ -2,10 +2,15 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manger');
+const { writeFile, copyFile }= require('./src/generate-site');
+const templateData = require('./src/page-template');
+
+const employeeArr = [];
 
 
 // Initial user prompt. Manager is required
 const promptManager = () =>{
+
     return inquirer.prompt([
         {
             type: 'input',
@@ -47,43 +52,58 @@ const promptManager = () =>{
         }
     ])
     .then((answers) => {
-        // Still need to push answers to html file
-        answers = new Manager(answers.name, answers.id, answers.email, answers.officeNum);
-        console.log(answers);
+        
+        const { name, id, email, officeNum } = answers;
+        const manager = new Manager(name, id, email, officeNum);
 
+        employeeArr.push(manager);
+
+        console.log(employeeArr);
         return promptEmployee();
     })
 };
 
 // add employee questions.  give list of employees to add. 
 const promptEmployee = () => {
-    return inquirer.prompt([
-        {
-            type: 'confirm',
-            name: 'employeeConfirm',
-            message: 'Would you like to add another employee?'
-        }       
-    ])
-    .then(answer => {
-        if(answer.employeeConfirm){
-            return inquirer.prompt([
-                {
-                    type: 'list',
-                    name: 'employeeType',
-                    message: 'What kind of employee would you like to add?',
-                    choices: ['Engineer', 'Intern']
-                }
-            ])
-            .then(answer => {
-                if(answer.employeeType === 'Engineer'){
-                    promptEngineer();
-                }
-                if(answer.employeeType === 'Intern'){
-                    promptIntern();
-                }
-            })
-        }
-    });
+
+        return inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'employeeConfirm',
+                message: 'Would you like to add another employee?'
+            }       
+        ])
+        .then(answer => {
+            if(answer.employeeConfirm){
+
+                console.log(`
+                ==================
+                Add a New Employee
+                ==================
+                `);
+                
+                return inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'employeeType',
+                        message: 'What kind of employee would you like to add?',
+                        choices: ['Engineer', 'Intern']
+                    }
+                ])
+                .then(answer => {
+                    if(answer.employeeType === 'Engineer'){
+                        promptEngineer();
+                    }
+                    if(answer.employeeType === 'Intern'){
+                        promptIntern();
+                    }
+                })
+            }
+            let pageHTML = templateData(employeeArr);
+
+            writeFile(pageHTML);
+            copyFile();
+        })
 };
 
 // add questions about an engineer
@@ -130,10 +150,13 @@ const promptEngineer = () => {
         }
     ])
     .then((answers) => {
-        // Still need to push answers to html file
-        answers = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        console.log(answers);
 
+        const { name, id, email, github} = answers; 
+        const engineer = new Engineer(name, id, email, github);
+
+        employeeArr.push(engineer);
+
+        console.log(employeeArr);
         return promptEmployee();
     });    
 };
@@ -182,10 +205,11 @@ const promptIntern = () => {
         }
     ])
     .then((answers) => {
-        // Still need to push answers to html file
-        answers = new Intern (answers.name, answers.id, answers.email, answers.school);
-        console.log(answers);
+        const { name, id, email, school} = answers; 
+        const intern = new Intern (name, id, email, school);
 
+        employeeArr.push(intern);
+        console.log(employeeArr);
         return promptEmployee();
     });
 };
