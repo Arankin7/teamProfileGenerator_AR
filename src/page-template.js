@@ -1,74 +1,86 @@
-const manager = managerData => {
-    return `
-    <div>
-        <div> 
-            <h2>${managerData.getName()}</h2>
-            <h3>Role: ${managerData.getRole()}</h3>
-        </div>
-        <ul>
-            <li>Employee Id: ${managerData.getId()}</li>
-            <li>Email: ${managerData.getEmail()}</li>
-            <li>Office Number: ${managerData.officeNumber}</li>
-        </ul>
-    </div>
-    `
-}
+const Employee = require("../lib/Employee");
+const Engineer = require('../lib/Engineer');
 
-const engineer = engineerData => {
-    return `
-    <div>
-        <div> 
-            <h2>${engineerData.name}</h2>
-            <h3>Role: ${engineerData.getRole()}</h3>
+const pageTemplate = (templateData) =>{
+    let employeeArr = [];
+
+    const generateManager = manager => {
+        let managerData = 
+        `
+        <div>
+            <div> 
+                <h2>${managerData.getName()}</h2>
+                <h3>Role: ${managerData.getRole()}</h3>
+            </div>
+            <ul>
+                <li>Employee Id: ${managerData.getId()}</li>
+                <li>Email: ${managerData.getEmail()}</li>
+                <li>Office Number: ${managerData.officeNumber}</li>
+            </ul>
         </div>
-        <ul>
-            <li>Employee Id: ${engineerData.id}</li>
-            <li>Email: ${engineerData.email}</li>
-            <li>GitHub: ${engineerData.github}</li>
-        </ul>
-    </div>
+        `
+        employeeArr.push(managerData);
+    }
     
-    `
-}
-
-const intern = internData => {
-    return`
-    <div>
-        <div> 
-            <h2>${internData.name}</h2>
-            <h3>Role: ${internData.getRole()}</h3>
+    const generateEngineer = engineer => {
+        let engineerData = 
+        `
+        <div>
+            <div> 
+                <h2>${engineerData.name}</h2>
+                <h3>Role: ${engineerData.getRole()}</h3>
+            </div>
+            <ul>
+                <li>Employee Id: ${engineerData.id}</li>
+                <li>Email: ${engineerData.email}</li>
+                <li>GitHub: ${engineerData.github}</li>
+            </ul>
         </div>
-        <ul>
-            <li>Employee Id: ${internData.id}</li>
-            <li>Email: ${internData.email}</li>
-            <li>School: ${internData.school}</li>
-        </ul>
-    </div>
+        `
+        employeeArr.push(engineerData)
+    }
     
-    `
-}
+    const generateIntern = intern => {
+        let internData = 
+        `
+        <div>
+            <div> 
+                <h2>${internData.name}</h2>
+                <h3>Role: ${internData.getRole()}</h3>
+            </div>
+            <ul>
+                <li>Employee Id: ${internData.id}</li>
+                <li>Email: ${internData.email}</li>
+                <li>School: ${internData.school}</li>
+            </ul>
+        </div>  
+        `
+        employeeArr.push(internData);
+    }
 
-const employees = employeeArr =>{
-    let employeeInfo = '';
-
-    for (let i = 0; i < employeeArr.length; i++){
+    for(i = 0; i < employeeArr.length; i++){
         if(employeeArr[i].getRole() === "Manager"){
-            // employeeInfo.push(manager(employeeArr[i]));
-            employeeInfo = employeeInfo + manager(employeeArr[i])
+            generateManager(employeeArr[i]);
         }
         if(employeeArr[i].getRole() === "Engineer"){
-            // employeeInfo.push(engineer(employeeArr[i]));
-            employeeInfo = employeeInfo + engineer(employeeArr[i])
+            generateEngineer(employeeArr[i]);            
         }
         if(employeeArr[i].getRole() === "Intern"){
-            // employeeInfo.push(intern(employeeArr[i]));
-            employeeInfo = employeeInfo + intern(employeeArr[i])            
+            generateIntern(employeeArr[i]);            
         }
-        return employeeInfo; 
     }
+
+    return templateData.join('');
+
 }
 
-const templateData = employeeData => {
+
+
+
+
+module.exports = templateData => {
+    console.log(templateData)
+    
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +98,7 @@ const templateData = employeeData => {
     <header></header>
     <main>
 
-    ${employees(employeeData)}
+    ${pageTemplate(templateData)}
 
     </main>    
     <footer></footer>
@@ -95,4 +107,4 @@ const templateData = employeeData => {
 `
 }
 
-module.exports = templateData; 
+// module.exports = templateData; 

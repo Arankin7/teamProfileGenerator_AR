@@ -2,8 +2,10 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manger');
+const fs = require('fs');
 const { writeFile, copyFile }= require('./src/generate-site');
-const templateData = require('./src/page-template');
+const pageTemplate = require('./src/page-template');
+const generateSite = require('./src/generate-site');
 
 const employeeArr = [];
 
@@ -61,49 +63,6 @@ const promptManager = () =>{
         console.log(employeeArr);
         return promptEmployee();
     })
-};
-
-// add employee questions.  give list of employees to add. 
-const promptEmployee = () => {
-
-        return inquirer.prompt([
-            {
-                type: 'confirm',
-                name: 'employeeConfirm',
-                message: 'Would you like to add another employee?'
-            }       
-        ])
-        .then(answer => {
-            if(answer.employeeConfirm){
-
-                console.log(`
-                ==================
-                Add a New Employee
-                ==================
-                `);
-                
-                return inquirer.prompt([
-                    {
-                        type: 'list',
-                        name: 'employeeType',
-                        message: 'What kind of employee would you like to add?',
-                        choices: ['Engineer', 'Intern']
-                    }
-                ])
-                .then(answer => {
-                    if(answer.employeeType === 'Engineer'){
-                        promptEngineer();
-                    }
-                    if(answer.employeeType === 'Intern'){
-                        promptIntern();
-                    }
-                })
-            }
-            let pageHTML = templateData(employeeArr);
-
-            writeFile(pageHTML);
-            copyFile();
-        })
 };
 
 // add questions about an engineer
@@ -212,6 +171,48 @@ const promptIntern = () => {
         console.log(employeeArr);
         return promptEmployee();
     });
+};
+// add employee questions.  give list of employees to add. 
+const promptEmployee = () => {
+
+    return inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'employeeConfirm',
+            message: 'Would you like to add another employee?'
+        }       
+    ])
+    .then(answer => {
+        if(answer.employeeConfirm){
+
+            console.log(`
+            ==================
+            Add a New Employee
+            ==================
+            `);
+            
+            return inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employeeType',
+                    message: 'What kind of employee would you like to add?',
+                    choices: ['Engineer', 'Intern']
+                }
+            ])
+            .then(answer => {
+                if(answer.employeeType === 'Engineer'){
+                    promptEngineer();
+                }
+                if(answer.employeeType === 'Intern'){
+                    promptIntern();
+                }
+            })
+        }
+        let pageHTML = pageTemplate(employeeArr);
+
+        writeFile(pageHTML);
+        copyFile();
+    })
 };
 
 promptManager();
