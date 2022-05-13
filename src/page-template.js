@@ -8,16 +8,18 @@ const pageTemplate = templateData =>{
         console.log(manager);
         let managerData = 
         `
-        <div>
-            <div> 
-                <h2>${manager.name}</h2>
-                <h3>Role: ${manager.getRole()}</h3>
+        <div class = "employee pure-g pure-u-1">
+            <div class = "manager pure-u-1">
+                <div class = "title"> 
+                    <h2>${manager.name}</h2>
+                    <h3>Role: ${manager.getRole()}</h3>
+                </div>
+                <ul>
+                    <li>Employee Id: ${manager.id}</li>
+                    <li>Email: <a href= "mailto:${manager.email}">${manager.email}</a></li>
+                    <li>Office Number: ${manager.officeNumber}</li>
+                </ul>
             </div>
-            <ul>
-                <li>Employee Id: ${manager.id}</li>
-                <li>Email: ${manager.email}</li>
-                <li>Office Number: ${manager.officeNumber}</li>
-            </ul>
         </div>
         `
         employeeArr.push(managerData);
@@ -26,16 +28,18 @@ const pageTemplate = templateData =>{
     const generateEngineer = engineer => {
         let engineerData = 
         `
-        <div>
-            <div> 
-                <h2>${engineer.name}</h2>
-                <h3>Role: ${engineer.getRole()}</h3>
+        <div class = "employee pure-g pure-u-1-2">
+            <div class = "engineer pure-u-1">
+                <div class = "title"> 
+                    <h2>${engineer.name}</h2>
+                    <h3>Role: ${engineer.getRole()}</h3>
+                </div>
+                <ul>
+                    <li>Employee Id: ${engineer.id}</li>
+                    <li>Email: <a href= "mailto:${engineer.email}">${engineer.email}</a></li>
+                    <li>GitHub: <a href="https://www.github.com/${engineer.github}">${engineer.github}</a></li>
+                </ul>
             </div>
-            <ul>
-                <li>Employee Id: ${engineer.id}</li>
-                <li>Email: ${engineer.email}</li>
-                <li>GitHub: ${engineer.github}</li>
-            </ul>
         </div>
         `
         employeeArr.push(engineerData)
@@ -44,16 +48,18 @@ const pageTemplate = templateData =>{
     const generateIntern = intern => {
         let internData = 
         `
-        <div>
-            <div> 
-                <h2>${intern.name}</h2>
-                <h3>Role: ${intern.getRole()}</h3>
+        <div class = "employee pure-g pure-u-1-2">
+            <div class = "intern pure-u-1">
+                <div class = "title"> 
+                    <h2>${intern.name}</h2>
+                    <h3>Role: ${intern.getRole()}</h3>
+                </div>
+                <ul>
+                    <li>Employee Id: ${intern.id}</li>
+                    <li>Email: <a href= "mailto:${intern.email}">${intern.email}</a></li>
+                    <li>School: ${intern.school}</li>
+                </ul>
             </div>
-            <ul>
-                <li>Employee Id: ${intern.id}</li>
-                <li>Email: ${intern.email}</li>
-                <li>School: ${intern.school}</li>
-            </ul>
         </div>  
         `
         employeeArr.push(internData);
@@ -88,14 +94,17 @@ module.exports = templateData => {
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/grids-responsive-min.css" />
 
-    <link rel="stylesheet" href="./dist/style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Team Profile</title>
 </head>
 <body>
-    <header></header>
+    <header class = "header">
+    My Team
+    </header>
     <main>
-
-    ${pageTemplate(templateData)}
+        <div class = "team pure-g">
+        ${pageTemplate(templateData)}
+        </div>
 
     </main>    
     <footer></footer>
