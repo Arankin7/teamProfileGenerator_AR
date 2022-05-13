@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+}
+
+.header {
+    padding: 2em;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 1px 1px 4px rgb(131, 131, 131);
+    box-shadow: 2px 2px 5px 2px black;
+    background-size: 100%;
+    background-position: center;
+    background: linear-gradient(45deg, rgb(0, 174, 255), rgba(52, 163, 95, 0.719))    
+}
+
+.team {
+    text-align: center;
+    border: 1px 1px black;
+}
+
+.employee {
+    border: 1px 1px black;
+    box-shadow: 2px 2px 5px 2px black;
+}
+.title {
+    font-weight: bold;
+    font-size: 2em;
+    text-shadow: 1px 1px 5px cornsilk;;  
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.manager {
+    background: linear-gradient(45deg, rgb(25, 0, 255), rgb(118, 165, 252));
+}
+
+.engineer {
+    background: linear-gradient(45deg, rgb(67, 2, 110), rgb(135, 65, 192));
+    width: 100%;
+}
+
+.intern {
+    background: linear-gradient(45deg, rgb(9, 90, 7), rgb(29, 180, 105));
+    width: 100%;
+}
